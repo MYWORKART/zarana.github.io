@@ -368,29 +368,30 @@ const links = imageLinks.trim().split("\n");
 
 links.forEach(link => {
 
-    if(link.trim() !== ""){
+    const img = link.trim();
+
+    if (img !== "") {
+
+        const message =
+            "🛍️ Order Request\n\n📦 Product Image:\n" + img;
+
+        const whatsappLink =
+            "https://wa.me/919537666838?text=" + encodeURIComponent(message);
 
         gallery.innerHTML += `
-
         <div class="card">
-
-            <img src="${link.trim()}" loading="lazy">
+            <img src="${img}" loading="lazy">
 
             <a class="order-btn"
-            href="https://wa.me/919537666838"
+            href="${whatsappLink}"
             target="_blank">
-
-            Order Now
-
+                Order Now
             </a>
-
         </div>
-
         `;
     }
 
 });
-
 </script>
 <!-- FOOTER -->
 
