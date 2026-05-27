@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ZARANA Jewellery</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#f5f5f5;
+}
+
+/* HEADER */
+
+header{
+    background:black;
+    color:white;
+    text-align:center;
+    padding:30px 15px;
+    box-shadow:0 3px 10px rgba(0,0,0,0.3);
+}
+
+header h1{
+    color:#d4af37;
+    font-size:48px;
+    letter-spacing:4px;
+}
+
+header p{
+    margin-top:10px;
+    font-size:18px;
+}
+
+/* ADDRESS */
+
+.address{
+    background:white;
+    text-align:center;
+    padding:20px;
+    line-height:32px;
+    font-size:18px;
+    font-weight:bold;
+}
+
+/* GALLERY */
+
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+    padding:25px;
+}
+
+.card{
+    background:white;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 5px 18px rgba(0,0,0,0.2);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card img{
+    width:100%;
+    height:380px;
+    object-fit:cover;
+}
+
+/* ORDER BUTTON */
+
+.order-btn{
+    display:block;
+    text-align:center;
+    background:black;
+    color:white;
+    padding:16px;
+    text-decoration:none;
+    font-size:20px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.order-btn:hover{
+    background:#d4af37;
+    color:black;
+}
+
+/* FLOAT BUTTONS */
+
+.float-buttons{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    z-index:1000;
+}
+
+.float-buttons a{
+    width:65px;
+    height:65px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    color:white;
+    font-size:30px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.3);
+}
+
+.whatsapp{
+    background:#25D366;
+}
+
+.call{
+    background:#111;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>ZARANA</h1>
+    <p>Premium Jewellery Collection</p>
+</header>
+
+<div class="address">
+E-302, કળશ રેસિડેન્સી,<br>
+મેઘ મલ્હાર રેસિડેન્સી ની સામે,<br>
+સ્વામિનારાયણ ગુરુકુળ, નિકોલ, અમદાવાદ
+</div>
+
+<div class="gallery" id="gallery"></div>
+
+<!-- FLOATING BUTTONS -->
+
+<div class="float-buttons">
+
+    <!-- WhatsApp -->
+    <a class="whatsapp"
+    href="https://wa.me/919537666838"
+    target="_blank">
+    💬
+    </a>
+
+    <!-- Call -->
+    <a class="call"
+    href="tel:9537666838">
+    📞
+    </a>
+
+</div>
+
+<script>
+
+const imageLinks = `
+
+
+https://i.ibb.co/Ng81KxPx/IMG20260223074343.jpg
+https://i.ibb.co/XrF3ssvk/IMG20260223075837.jpg
+https://i.ibb.co/5WQPBFTH/IMG20260223075910.jpg
+https://i.ibb.co/zWj7NcHW/IMG20260223075932.jpg
+https://i.ibb.co/VcrR4jL5/IMG20260223080820.jpg
+https://i.ibb.co/60Jqzh0k/IMG20260223080837.jpg
+https://i.ibb.co/k2vbW31N/IMG20260223080849.jpg
+https://i.ibb.co/vx3Z6cZz/IMG20260223081251.jpg
+https://i.ibb.co/bgSmzvm5/IMG20260223081538.jpg
+https://i.ibb.co/3ytLWs4V/IMG20260223081551.jpg
+https://i.ibb.co/9P9j65X/IMG20260223081748.jpg
+https://i.ibb.co/TB7V0sZJ/IMG20260223081822.jpg
+https://i.ibb.co/0ycyZPVD/IMG20260223081840.jpg
+https://i.ibb.co/5W7fvVp3/IMG20260223081901.jpg
+https://i.ibb.co/xtvYbLNT/IMG20260223084932.jpg
+https://i.ibb.co/zhzyX8Jd/IMG20260223084552.jpg
+https://i.ibb.co/yB6hbGpy/IMG20260223084537.jpg
+https://i.ibb.co/YFkm0Fbs/IMG20260223084511.jpg
+https://i.ibb.co/5gJSCssT/IMG20260223084048.jpg
+https://i.ibb.co/3YG7w2YW/IMG20260223082745.jpg
+https://i.ibb.co/0jWQFS8W/IMG20260223082539.jpg
+https://i.ibb.co/1YP1SSK9/IMG20260223082504.jpg
+https://i.ibb.co/SwJGMk5m/IMG20260223082427.jpg
+https://i.ibb.co/Mx695gvR/IMG20260223081927.jpg
+https://i.ibb.co/35yyWyrN/IMG20260223090218.jpg
+https://i.ibb.co/PzrFvs5c/IMG20260223085511.jpg
+https://i.ibb.co/W4PdM9p0/IMG20260223085358.jpg
+https://i.ibb.co/gbsMTV8q/IMG20260223084954.jpg
+https://i.ibb.co/v46hfhrH/IMG20260224075222.jpg
+https://i.ibb.co/pBSHjY8Y/IMG20260224074330.jpg
+https://i.ibb.co/ZR5PBYrB/IMG20260224074206.jpg
+https://i.ibb.co/7tBy628P/IMG20260224074108.jpg
+https://i.ibb.co/YBmjZc6V/IMG20260224073924.jpg
+https://i.ibb.co/2337rgpy/IMG20260224073734.jpg
+https://i.ibb.co/zVxHmZyZ/IMG20260223092159.jpg
+https://i.ibb.co/x8MD4cmp/IMG20260223092106.jpg
+https://i.ibb.co/PG97zGdD/IMG20260223092003.jpg
+https://i.ibb.co/pBNyYFWK/IMG20260223091922.jpg
+https://i.ibb.co/YFZP1vVD/IMG20260223091909.jpg
+https://i.ibb.co/LXS7ScnS/IMG20260223091853.jpg
+https://i.ibb.co/G4DLmJht/IMG20260223091847.jpg
+https://i.ibb.co/sv0p25n5/IMG20260223091822.jpg
+https://i.ibb.co/5X9zwLNm/IMG20260223091708.jpg
+https://i.ibb.co/6cGQhdbF/IMG20260223091448.jpg
+https://i.ibb.co/WWPv4dZ6/IMG20260223091428.jpg
+https://i.ibb.co/v7zJsXc/IMG20260223091412.jpg
+https://i.ibb.co/CpPTZ9qv/IMG20260223091359.jpg
+https://i.ibb.co/cKnvMyBY/IMG20260223090440.jpg
+https://i.ibb.co/wNCX3Wz6/IMG20260223090420.jpg
+https://i.ibb.co/kswM3xBV/IMG20260223090409.jpg
+https://i.ibb.co/Ps1jYCqb/IMG20260223090346.jpg
+https://i.ibb.co/7tggJxGR/IMG20260223090332.jpg
+https://i.ibb.co/YBmjZc6V/IMG20260224073924.jpg
+https://i.ibb.co/Y781NH7q/IMG20260223090303.jpg
+https://i.ibb.co/r26bJTzH/IMG20260223090249.jpg
+https://i.ibb.co/4Zn0sxzw/IMG20260223090233.jpg
+https://i.ibb.co/HTb8rF58/IMG20260224082444.jpg
+https://i.ibb.co/Cpp3Vg7g/IMG20260224082700.jpg
+https://i.ibb.co/mCDvBkKK/IMG20260224082829.jpg
+https://i.ibb.co/nypzKf3/IMG20260224082918.jpg
+https://i.ibb.co/GvMLwJR2/IMG20260224083142.jpg
+https://i.ibb.co/6RW6wZ0X/IMG20260224084308.jpg
+https://i.ibb.co/Vcq0tyQV/IMG20260224084500.jpg
+https://i.ibb.co/jkSgPgWp/IMG20260224084507.jpg
+https://i.ibb.co/Z6Vb8Sbr/IMG20260224084625.jpg
+https://i.ibb.co/mrc4ffB1/IMG20260224084838.jpg
+https://i.ibb.co/BHywzmsN/IMG20260224085148.jpg
+https://i.ibb.co/fzzLWrF5/IMG20260224085502.jpg
+https://i.ibb.co/bjf6mhYg/IMG20260224085741.jpg
+https://i.ibb.co/5x68YdS5/IMG20260224085959.jpg
+https://i.ibb.co/ymz5nSSC/IMG20260224090135.jpg
+https://i.ibb.co/ymz5nSSC/IMG20260224090135.jpg
+https://i.ibb.co/S4FVGFNv/IMG20260224090244.jpg
+https://i.ibb.co/nsk9xqgp/IMG20260224090332.jpg
+https://i.ibb.co/bgbVPQYx/IMG20260224090433.jpg
+https://i.ibb.co/PGjnv5cm/IMG20260224090544.jpg
+https://i.ibb.co/9HvkDcDJ/IMG20260224090619.jpg
+https://i.ibb.co/CpxtjqmB/IMG20260224090722.jpg
+https://i.ibb.co/zhGS05ZJ/IMG20260224090809.jpg
+https://i.ibb.co/k6kvs086/IMG20260224090835.jpg
+https://i.ibb.co/krqdPsN/IMG20260224090842.jpg
+https://i.ibb.co/21g889Gq/IMG20260224090916.jpg
+https://i.ibb.co/v46hfhrH/IMG20260224075222.jpg
+https://i.ibb.co/bMhsRQVZ/IMG20260224075322.jpg
+https://i.ibb.co/0RVR8PM9/IMG20260224075434.jpg
+https://i.ibb.co/1fCQVLQH/IMG20260224075643.jpg
+https://i.ibb.co/v6JRf8LY/IMG20260224075659.jpg
+https://i.ibb.co/wNvdksws/IMG20260224075922.jpg
+https://i.ibb.co/nsgyj1Fd/IMG20260224080330.jpg
+https://i.ibb.co/zTLJFmJZ/IMG20260224080447.jpg
+https://i.ibb.co/PZRvwkGW/IMG20260224080543.jpg
+https://i.ibb.co/gc8Z1Hy/IMG20260224081349.jpg
+https://i.ibb.co/FLZ5TRMG/IMG20260224081737.jpg
+https://i.ibb.co/DgkRQGxG/IMG20260224081857.jpg
+https://i.ibb.co/bjtHJ3cL/IMG20260224082004.jpg
+https://i.ibb.co/svSfcRQk/IMG20260224082027.jpg
+https://i.ibb.co/chQ9J0DX/IMG20260224082122.jpg
+https://i.ibb.co/TxyC83H9/IMG20260224082224.jpg
+https://i.ibb.co/r2rW1xF0/IMG20260224082311.jpg
+https://i.ibb.co/G3nkp8mm/IMG20260405081304.jpg
+https://i.ibb.co/GQLMzVwq/IMG20260405081055.jpg
+https://i.ibb.co/nNT2DZsC/IMG20260405081050.jpg
+https://i.ibb.co/15m42Jg/IMG20260405081005.jpg
+https://i.ibb.co/tMtkMDKr/IMG20260405080917.jpg
+https://i.ibb.co/Swxr1YxL/IMG20260405080808.jpg
+https://i.ibb.co/zW6c5SPK/IMG20260405080754.jpg
+https://i.ibb.co/JjkkwsPC/IMG20260405080631.jpg
+https://i.ibb.co/C3528WkV/IMG20260405080538.jpg
+https://i.ibb.co/BVhkf0Lw/IMG20260405075550.jpg
+https://i.ibb.co/NcpLhvk/IMG20260405075342.jpg
+https://i.ibb.co/0pFF2rJh/IMG20260405075156.jpg
+https://i.ibb.co/k25pPvbD/IMG20260405075153.jpg
+https://i.ibb.co/LXqrpR42/IMG20260405075042.jpg
+https://i.ibb.co/6RVfCtys/IMG20260405074859.jpg
+https://i.ibb.co/r2sr01C4/IMG20260405074720.jpg
+https://i.ibb.co/PvpJyPTb/IMG20260405074537.jpg
+https://i.ibb.co/N6KvTQ67/IMG20260405074459.jpg
+https://i.ibb.co/0yGsjYkc/IMG20260405074358.jpg
+https://i.ibb.co/GvD1NNTW/IMG20260405074346.jpg
+https://i.ibb.co/Zzk8gX7P/IMG20260405074212.jpg
+https://i.ibb.co/wZhBk46c/IMG20260405074108.jpg
+https://i.ibb.co/ZRT3BqJw/IMG20260224091054.jpg
+https://i.ibb.co/fdJF34QL/IMG20260224091025.jpg
+https://i.ibb.co/qLjrr12L/IMG20260224090949.jpg
+https://i.ibb.co/XrBJNdjW/IMG20260405083246.jpg
+https://i.ibb.co/0jF6pyyg/IMG20260405083202.jpg
+https://i.ibb.co/F4DkR4Ms/IMG20260405083131.jpg
+https://i.ibb.co/Q35QWxKr/IMG20260405083126.jpg
+https://i.ibb.co/Qjd2M5Hq/IMG20260405083046.jpg
+https://i.ibb.co/dd7XS8P/IMG20260405083018.jpg
+https://i.ibb.co/bj2cvQrM/IMG20260405082905.jpg
+https://i.ibb.co/R4NCc6Dd/IMG20260405082757.jpg
+https://i.ibb.co/yF04f9QP/IMG20260405082653.jpg
+https://i.ibb.co/HDk57mcZ/IMG20260405082523.jpg
+https://i.ibb.co/V0HW6BSg/IMG20260405082442.jpg
+https://i.ibb.co/6RfstTXV/IMG20260405082400.jpg
+https://i.ibb.co/S76f4PFK/IMG20260405082312.jpg
+https://i.ibb.co/9mN5pcPV/IMG20260405082225.jpg
+https://i.ibb.co/dZDrhc2/IMG20260405081609.jpg
+https://i.ibb.co/zVfWWmyC/IMG20260405081501.jpg
+https://i.ibb.co/nq2R2t9y/IMG20260405081415.jpg
+https://i.ibb.co/993X48vc/IMG20260405090708.jpg
+https://i.ibb.co/qYZX3wcY/IMG20260405090412.jpg
+https://i.ibb.co/NgQ9rBXp/IMG20260405090234.jpg
+https://i.ibb.co/1YfCTvW5/IMG20260405090030.jpg
+https://i.ibb.co/bjH7Bw2m/IMG20260405085855.jpg
+https://i.ibb.co/7tmcFTQq/IMG20260405085806.jpg
+https://i.ibb.co/Wpc8nKRS/IMG20260405085710.jpg
+https://i.ibb.co/b5bGB4ym/IMG20260405085426.jpg
+https://i.ibb.co/d41rXDjq/IMG20260405084513.jpg
+https://i.ibb.co/jvbw4c3C/IMG20260405084456.jpg
+https://i.ibb.co/prXRm1tx/IMG20260405084428.jpg
+https://i.ibb.co/pjrNkDnp/IMG20260405084400.jpg
+https://i.ibb.co/DPmjcZ3c/IMG20260405084323.jpg
+https://i.ibb.co/V0hvpCPj/IMG20260405084237.jpg
+https://i.ibb.co/W4nBwkvd/IMG20260405084154.jpg
+https://i.ibb.co/5gVjbwNT/IMG20260405084117.jpg
+https://i.ibb.co/WWpRddGp/IMG20260405084048.jpg
+https://i.ibb.co/VW0vcHzr/IMG20260405084009.jpg
+https://i.ibb.co/Jjm1xWkp/IMG20260405083928.jpg
+https://i.ibb.co/tpnGPmhv/IMG20260405083846.jpg
+https://i.ibb.co/bR6mQnFb/IMG20260405083759.jpg
+https://i.ibb.co/XZW9HGMx/IMG20260405083728.jpg
+https://i.ibb.co/3mkvRCvB/IMG20260405083618.jpg
+https://i.ibb.co/3yT7fwJw/IMG20260405083559.jpg
+https://i.ibb.co/qM3sZ7KB/IMG20260418092453.jpg
+https://i.ibb.co/m5cmmLLp/IMG20260418092433.jpg
+https://i.ibb.co/1GmRV5Vh/IMG20260418092411.jpg
+https://i.ibb.co/0vsB4Qd/IMG20260418092339.jpg
+https://i.ibb.co/TqHmDWCp/IMG20260418092022.jpg
+https://i.ibb.co/1fTpGCJM/IMG20260418092004.jpg
+https://i.ibb.co/W41c0b1P/IMG20260418091939.jpg
+https://i.ibb.co/C3QZqRMh/IMG20260418091923.jpg
+https://i.ibb.co/cXSq5Vqd/IMG20260418091312.jpg
+https://i.ibb.co/HLQQk36c/IMG20260418091144.jpg
+https://i.ibb.co/6cyLRKp6/IMG20260418091027.jpg
+https://i.ibb.co/sMV8026/IMG20260418090901.jpg
+https://i.ibb.co/2Y8b3BSv/IMG20260418090613.jpg
+https://i.ibb.co/rJsYJyd/IMG20260418090521.jpg
+https://i.ibb.co/PZvG4sFY/IMG20260418090455.jpg
+https://i.ibb.co/spW498fw/IMG20260405090817.jpg
+
+
+
+
+
+
+
+`;
+
+const gallery = document.getElementById("gallery");
+
+const links = imageLinks.trim().split("\n");
+
+links.forEach(link => {
+
+    if(link.trim() !== ""){
+
+        gallery.innerHTML += `
+
+        <div class="card">
+
+            <img src="${link.trim()}" loading="lazy">
+
+            <a class="order-btn"
+            href="https://wa.me/919537666838"
+            target="_blank">
+
+            Order Now
+
+            </a>
+
+        </div>
+
+        `;
+    }
+
+});
+
+</script>
+<!-- FOOTER -->
+
+<footer class="footer">
+
+    <h2>📞 Mobile Number</h2>
+
+    <a href="tel:9537666838">
+        9537666838
+    </a>
+
+</footer>
+
+<style>
+
+.footer{
+    background:black;
+    color:white;
+    text-align:center;
+    padding:35px 20px;
+    margin-top:40px;
+}
+
+.footer h2{
+    margin-bottom:15px;
+    color:#d4af37;
+    font-size:28px;
+}
+
+.footer a{
+    color:white;
+    text-decoration:none;
+    font-size:24px;
+    font-weight:bold;
+}
+
+.footer a:hover{
+    color:#d4af37;
+}
+
+</style>
+</body>
+</html>
